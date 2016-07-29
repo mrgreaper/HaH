@@ -58,7 +58,9 @@ var staticPage = [
 		'font:bold 45px sans-serif; padding:20px; border-radius:5px;">',
 		'Holograms<br/>',
 		'Against<br/>',
-		'Humanity',
+		'Humanity<br/>',
+		'Daves Unofficial<br/>',
+		'Edition',
 	'</p>'
 ].join('\n');
 
