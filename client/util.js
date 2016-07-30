@@ -305,11 +305,11 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 			g.fillText(card.creator, x+1.5*edgeLength, y);
 		}
 		else if( card.numResponses || card.numDraws ){
-			g.fillText("HAHDUE", x+1.5*edgeLength, y);
+			g.fillText("HAH", x+1.5*edgeLength, y);
 		}
 		else {
 			makeSafeFont(g, ['Holograms Against Humanity'], .6525*cardWidth);
-			g.fillText("Holograms Against Humanity Unofficial", x+1.5*edgeLength, y);
+			g.fillText("Holograms Against Humanity Daves", x+1.5*edgeLength, y);
 		}
 
 		// draw card back
