@@ -441,16 +441,20 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 			g.fillText("HAH", x+1.5*edgeLength, y);
 		}
 		else {
-			makeSafeFont(g, ['Holograms Against Humanity'], .6525*cardWidth*fontScale);
-			g.fillText("Holograms Against Humanity", x+1.5*edgeLength, y);
+			
+			makeSafeFont(g, ['Holograms Against Humanity'], .6525*cardWidth);
+			g.fillText("Holograms Against Humanity Daves", x+1.5*edgeLength, y);
+
 		}
 
 		// draw card back
 		g.font = 'bold '+(0.15*cardWidth*fontScale)+'px '+fontStack;
-		makeSafeFont(g, ['Holograms','Against','Humanity'], 0.8*cardWidth);
+		makeSafeFont(g, ['Holograms','Against','Humanity','Daves','Unofficial'], 0.8*cardWidth);
 		g.fillText('Holograms', 1.1*cardWidth, 0.22*cardWidth);
 		g.fillText('Against', 1.1*cardWidth, 0.37*cardWidth);
 		g.fillText('Humanity', 1.1*cardWidth, 0.52*cardWidth);
+		g.fillText('Daves', 1.1*cardWidth, 0.67*cardWidth);
+		g.fillText('Unofficial', 1.1*cardWidth, 0.82*cardWidth);
 
 		// assign texture
 		model.material = new THREE.MeshBasicMaterial({
@@ -478,16 +482,20 @@ window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
 		// draw card
 		g.font = 'bold '+(0.15*cardWidth*fontScale)+'px '+fontStack;
-		makeSafeFont(g, ['Holograms','Against','Humanity'], 0.8*cardWidth);
+		makeSafeFont(g, ['Holograms','Against','Humanity','Daves','Unofficial'], 0.8*cardWidth);
 		g.fillStyle = 'white';
 
 		g.fillText('Holograms', 0.1*cardWidth, 0.22*cardWidth);
 		g.fillText('Against', 0.1*cardWidth, 0.37*cardWidth);
 		g.fillText('Humanity', 0.1*cardWidth, 0.52*cardWidth);
+		g.fillText('Daves', 0.1*cardWidth, 0.67*cardWidth);
+		g.fillText('Unofficial', 0.1*cardWidth, 0.82*cardWidth);
 
 		g.fillText('Holograms', 1.1*cardWidth, 0.22*cardWidth);
 		g.fillText('Against', 1.1*cardWidth, 0.37*cardWidth);
 		g.fillText('Humanity', 1.1*cardWidth, 0.52*cardWidth);
+		g.fillText('Daves', 1.1*cardWidth, 0.67*cardWidth);
+		g.fillText('Unofficial', 1.1*cardWidth, 0.82*cardWidth);
 
 		g.font = 'bold '+(0.05*cardWidth*fontScale)+'px '+fontStack;
 		var legal = [
