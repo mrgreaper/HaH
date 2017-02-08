@@ -1,10 +1,9 @@
 'use strict';
-var config = require('../config.json'),
+var config = require('./config.js'),
 	structs = require('./structures.js'),
 	libgame = require('./game.js');
 
 var activeGames = structs.activeGames;
-
 
 /*
  * Handle requests to join the game
@@ -12,6 +11,11 @@ var activeGames = structs.activeGames;
 function joinRequest(id, displayName)
 {
 	var game = activeGames[this.gameId];
+
+	if( game.lockIds && game.lockIds.indexOf(id) === -1 ) {
+		this.emit('error', 'This game is locked to certain players.');
+		return;
+	}
 
 	// check if this player is already pending or joined
 	if( game.playerForSocket(this) ){
@@ -51,7 +55,7 @@ function joinRequest(id, displayName)
 /*
  * Request to join has been denied
  */
-function joinDenied(id, displayName, message)
+function joinDenied(id)
 {
 	var game = activeGames[this.gameId];
 
@@ -113,8 +117,24 @@ function join(id, displayName)
 	// subscribe client to player-only events
 	player.socket.join(game.id+'_players');
 
+	// determine correct seat for new player
+	// will be the first untaken seat in the order defined
+	var seatPriority = [0,4,8, 2,6,10, 1,5,9, 3,7,11];
+	player.seatNum = seatPriority.find(function(seat){
+		var seatIndex = game.turnOrder.findIndex(p => p.seatNum === seat);
+		return seatIndex < 0;
+	});
+	console.log('seating player at', player.seatNum);
+
 	// add player to the end of the turn order
-	game.turnOrder.push(player);
+	var placeInTurnOrder = game.turnOrder.findIndex(p => p.seatNum > player.seatNum);
+	game.turnOrder.splice(placeInTurnOrder, 0, player);
+
+	// push back czar index if joiner is before them
+	if(placeInTurnOrder <= game.czar){
+		game.czar = (game.czar+1) % game.turnOrder.length;
+		console.log('incrementing czar to', game.czar);
+	}
 
 	// let other clients know about new player
 	this.server.to(game.id+'_clients').emit('playerJoin', player.id, player.displayName, game.getCleanTurnOrder());
@@ -126,7 +146,7 @@ function join(id, displayName)
 /*
  * Leave game, voluntarily or otherwise
  */
-function leave(id, displayName, message)
+function leave(id, displayName, message, reason)
 {
 	var game = activeGames[this.gameId];
 
@@ -162,13 +182,13 @@ function leave(id, displayName, message)
 
 	// inform other clients of player's departure
 	this.server.to(game.id+'_clients').emit('playerLeave',
-		player.id, player.displayName, game.getCleanTurnOrder(), message);
+		player.id, player.displayName, game.getCleanTurnOrder(), message, reason);
 
 	console.log('Player', player.displayName, 'has left the game.');
 
 	// reinitialize game if last player leaves
 	if(game.turnOrder.length === 0){
-		activeGames[this.gameId] = new structs.Game(this.gameId);
+		activeGames[this.gameId] = new structs.Game(this.gameId, this.lockIds);
 	}
 
 	// game is interrupted, reset
@@ -262,16 +282,17 @@ function kickResponse(id, displayName, response)
 	vote[response ? 'yes' : 'no']++;
 	vote.voters.push(voter);
 
+	var index;
 	// check results
 	if(vote.yes >= vote.majority)
 	{
 		// vote passes
 		console.log('Vote to kick', vote.player.displayName, 'passes');
 		leave.call(this, vote.player.id, vote.player.displayName,
-			vote.player.displayName+' was kicked from the game.');
+			vote.player.displayName+' was kicked from the game.', 'vote-kicked');
 
 		// clear pending vote
-		var index = game.pendingKickVotes.indexOf(vote);
+		index = game.pendingKickVotes.indexOf(vote);
 		game.pendingKickVotes.splice(index, 1);
 	}
 	else if(vote.no >= vote.majority)
@@ -281,7 +302,7 @@ function kickResponse(id, displayName, response)
 		this.server.to(game.id+'_players').emit('kickVoteAborted', vote.player.id, vote.player.displayName);
 
 		// clear pending vote
-		var index = game.pendingKickVotes.indexOf(vote);
+		index = game.pendingKickVotes.indexOf(vote);
 		game.pendingKickVotes.splice(index, 1);
 	}
 	// else keep waiting for responses

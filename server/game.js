@@ -1,7 +1,7 @@
 'use strict';
 
-var players = require('./players.js'),
-	structs = require('./structures.js');
+require('./players.js');
+var structs = require('./structures.js');
 
 var activeGames = structs.activeGames;
 
@@ -177,8 +177,8 @@ function presentSubmission(playerId)
 function winnerSelection(playerId)
 {
 	var game = activeGames[this.gameId];
-	var player = game.playerForSocket(this);
-	if(!player || player !== game.turnOrder[game.czar]){
+	var currentPlayer = game.playerForSocket(this);
+	if(!currentPlayer || currentPlayer !== game.turnOrder[game.czar]){
 		this.emit('error', 'You are not the czar');
 		return;
 	}
@@ -204,8 +204,9 @@ function winnerSelection(playerId)
 		}
 	}
 
-	game.playerForId(playerId).wins.push( game.currentBlackCard );
-	
+	if(game.playerForId(playerId))
+		game.playerForId(playerId).wins.push( game.currentBlackCard );
+
 	this.server.to(game.id+'_clients').emit('winnerSelection', playerId);
 	game.state = 'roundFinished';
 	game.czar = (game.czar+1) % game.turnOrder.length;
@@ -219,4 +220,3 @@ module.exports = {
 	presentSubmission: presentSubmission,
 	winnerSelection: winnerSelection
 };
-
