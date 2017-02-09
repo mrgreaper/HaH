@@ -229,7 +229,7 @@
   {"text": "President Donald Trump promised to faithfully execute ___ when taking the oath of office.", "creator": "Entered by Dave"},
   {"text": "I must travel back in time to save ___ from ___", "creator": "Entered by Jerome", "numResponses": 2},
   {"text": "4 out of 5 dentists recommend tartar control toothpaste, but the 5th dentist recommends ___.", "creator": "Entered by Dave"},
-  {"text": "On a scale of ___ to ___, how badly would you rate the pain?", "creator": "Entered by Jerome", "numResponses": 2},
+  {"text": "On a scale of ___ to ___, how badly would you rate the pain?", "creator": "Entered by Dave", "numResponses": 2},
 	{"text": "The British people, mistook the Brexit vote for a vote on banning ___", "creator": "Entered by Dave"},
 	{"text": "The BBC have just announced that the new doctor will be ___.", "creator": "Entered by Dave"},
   {"text": "Our volunteer has on a blindfold and can not tell they are licking ___.", "creator": "Entered by Dave"},
@@ -242,6 +242,11 @@
   {"text": "I just released footage of the person opposite me with ___", "creator": "Entered by Dave"},
   {"text": "The chief of the tribe was known as Wantetuteh, an Apache word meaning ___", "creator": "Entered by Dave"},
   {"text": "The groundhog saw his shadow, that means six more months of ___", "creator": "Entered by Dave"},
+  {"text": "Next on the news, ___ and ___ are you protected?", "creator": "Entered by Dave", "numResponses": 2},
+  {"text": "i just read a tweet about ___ what is the world coming to?", "creator": "Entered by Dave"},
+  {"text": "We have the best ___ here.", "creator": "Entered by Dave"},
+  {"text": "___ has just been announced byt the vive steam group", "creator": "Entered by Dave"},
+  {"text": "Theres now a discord channel dedicated to talking about ___", "creator": "Entered by Dave"},
   {"text": "Marine biologists often find strange objects in the stomachs of sharks, but were shocked to discover ___ inside a 2000lb Great White", "creator": "Entered by Dave"},
   {"text": "What's my foolproof method for getting out of jury duty?", "creator": "Entered by Dave"}
  ],
@@ -603,6 +608,12 @@
   {"text": "Bugs bunny in drag.", "creator": "Entered by Dave"},
   {"text": "A pinata full of bees.", "creator": "Entered by Dave"},
   {"text": "Nibbling on grandma's neck.", "creator": "Entered by Dave"},
+  {"text": "A Tweet by Donald Trump.", "creator": "Entered by Dave"},
+  {"text": "A soggy biscuit.", "creator": "Entered by Dave"},
+  {"text": "A flask of weak lemon tea.", "creator": "Entered by Dave"},
+  {"text": "The vive steam group http://steamcommunity.com/groups/HTCVIVEVR.", "creator": "Entered by Dave"},
+  {"text": "A used teabag.", "creator": "Entered by Dave"},
+  {"text": "Tea bagging someone elses kill.", "creator": "Entered by Dave"},
 	{"text": "Punching a tree to gather wood.", "creator": "Entered by Dave"}
  ]
 }
